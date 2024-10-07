@@ -1,0 +1,12 @@
+pub mod add_bookmark;
+pub mod add_from_path;
+pub mod add_from_paths;
+pub mod add_from_url;
+pub mod add_from_urls;
+pub mod info;
+pub mod list;
+pub mod move_to_trash;
+pub mod refresh_palette;
+pub mod refresh_thumbnail;
+pub mod thumbnail;
+pub mod update;

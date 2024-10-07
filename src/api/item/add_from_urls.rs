@@ -18,6 +18,9 @@ pub struct AddFromUrlsItem {
     #[builder(default, setter(into))]
     #[serde(skip_serializing_if = "Vec::is_empty")]
     tags: Vec<String>,
+    #[builder(default, setter(strip_option))]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    star: Option<u8>,
     #[builder(default, setter(strip_option, into))]
     #[serde(skip_serializing_if = "Option::is_none")]
     annotation: Option<String>,
@@ -79,6 +82,7 @@ mod tests {
                             .name("example".to_string())
                             .annotation("aaa")
                             .tags([])
+                            .star(5)
                             .website("https://www.zhihu.com")
                             .build(),
                         AddFromUrlsItem::builder()
@@ -90,6 +94,7 @@ mod tests {
                             .annotation("aaa")
                             .tags([])
                             .website("https://www.zhihu.com")
+                            .star(5)
                             .build(),
                     ])
                     .build(),

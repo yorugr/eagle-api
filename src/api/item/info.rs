@@ -1,17 +1,20 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{data::Item, EagleApi, EagleResponse, Result};
+use crate::{
+    data::{Item, ItemId},
+    EagleApi, EagleResponse, Result,
+};
 
 #[derive(Debug, Serialize, Deserialize)]
 struct ItemInfoQuery {
-    id: String,
+    id: ItemId,
 }
 
 impl EagleApi {
-    pub async fn item_info(&self, id: &str) -> Result<Item> {
+    pub async fn item_info(&self, id: impl Into<ItemId>) -> Result<Item> {
         let url = format!("{}/api/item/info", self.inner.host);
 
-        let query = ItemInfoQuery { id: id.to_string() };
+        let query = ItemInfoQuery { id: id.into() };
 
         let resp: EagleResponse<Item> = self
             .inner
@@ -37,7 +40,7 @@ mod tests {
     async fn test_item_info() {
         let api = EagleApi::new(&var("EAGLE_API_TEST_HOST").unwrap());
         let list = api.item_list(None).await.unwrap();
-        let id = list[0].id.as_str();
+        let id = list[0].id.clone();
         let resp = api.item_info(id).await;
         resp.unwrap();
     }

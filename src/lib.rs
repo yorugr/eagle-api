@@ -1,3 +1,4 @@
+#![doc = include_str!("../README.md")]
 #![deny(unreachable_pub)]
 #![deny(clippy::unwrap_used)]
 #![deny(clippy::unwrap_in_result)]

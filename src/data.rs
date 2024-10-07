@@ -1,4 +1,5 @@
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize)]
 pub struct Color(pub u8, pub u8, pub u8);
@@ -30,4 +31,14 @@ pub struct Item {
     pub modification_time: i64,
     pub last_modified: i64,
     pub palettes: Vec<Palette>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct Application {
+    pub version: String,
+    pub prerelease_version: Option<String>,
+    pub build_version: String,
+    pub platform: String,
+    pub preferences: Value,
 }

@@ -83,4 +83,19 @@ impl<T> EagleResponse<T> {
             }),
         }
     }
+
+    pub(crate) fn ok_str(self) -> Result<String> {
+        match self.status {
+            EagleApiStatus::Success => match self.data.and_then(|data| data.into_message()) {
+                Some(data) => Ok(data),
+                None => Err(Error::MissingData),
+            },
+            _ => Err(Error::EagleApi {
+                status: self.status,
+                data: self.data.and_then(|data| data.into_message()),
+                code: self.code,
+                message: self.message,
+            }),
+        }
+    }
 }

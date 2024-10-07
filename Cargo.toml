@@ -2,6 +2,11 @@
 name = "eagle-api"
 version = "0.0.0"
 edition = "2021"
+license = "MIT"
+description = "Eage API client."
+homepage = "https://github.com/yorugr/eagle-api"
+repository = "https://github.com/yorugr/eagle-api"
+readme = "README.md"
 
 [dependencies]
 reqwest = { version = "0.12.8", features = ["json"] }

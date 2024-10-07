@@ -1,6 +1,6 @@
 # Eagel API
 
-Rust implementataions of [Eagle API](https://api.eagle.cool/).
+[Eagle API](https://api.eagle.cool/) client.
 
 ## Usage
 

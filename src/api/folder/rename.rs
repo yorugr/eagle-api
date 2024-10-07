@@ -50,7 +50,7 @@ mod tests {
 
     #[tokio::test]
     #[ignore]
-    async fn test_name() {
+    async fn test_folder_rename() {
         let api = EagleApi::new(&var("EAGLE_API_TEST_HOST").unwrap());
         let folders = api.folder_list().await.unwrap();
         let resp = api

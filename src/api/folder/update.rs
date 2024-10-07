@@ -1,20 +1,10 @@
 use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
 
-use crate::{data::FolderId, EagleApi, EagleResponse, Result};
-
-#[derive(Debug, Serialize)]
-#[serde(rename_all = "camelCase")]
-pub enum FolderColor {
-    Red,
-    Orange,
-    Green,
-    Yellow,
-    Aqua,
-    Blue,
-    Purple,
-    Pink,
-}
+use crate::{
+    data::{FolderColor, FolderId},
+    EagleApi, EagleResponse, Result,
+};
 
 #[derive(Debug, Serialize, TypedBuilder)]
 #[serde(rename_all = "camelCase")]
@@ -64,7 +54,7 @@ mod tests {
 
     #[tokio::test]
     #[ignore]
-    async fn test_name() {
+    async fn test_folder_updates() {
         let api = EagleApi::new(&var("EAGLE_API_TEST_HOST").unwrap());
         let folders = api.folder_list().await.unwrap();
         let resp = api

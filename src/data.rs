@@ -28,6 +28,17 @@ impl Deref for FolderId {
     }
 }
 
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Hash, PartialOrd, Ord)]
+pub struct TagsGroupId(pub String);
+
+impl Deref for TagsGroupId {
+    type Target = String;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Application {
@@ -67,6 +78,19 @@ pub struct Item {
     pub palettes: Vec<Palette>,
 }
 
+#[derive(Debug, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub enum FolderColor {
+    Red,
+    Orange,
+    Green,
+    Yellow,
+    Aqua,
+    Blue,
+    Purple,
+    Pink,
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Folder {
@@ -75,7 +99,46 @@ pub struct Folder {
     pub description: Option<String>,
     pub modification_time: i64,
     pub children: Vec<Folder>,
-    pub image_count: Option<usize>,
-    pub descendant_image_count: Option<usize>,
     pub tags: Vec<String>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct SmartFolder {
+    pub id: FolderId,
+    pub name: String,
+    pub description: Option<String>,
+    pub modification_time: i64,
+    pub children: Vec<SmartFolder>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct QuickAccess {}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct TagsGroup {
+    pub id: TagsGroupId,
+    pub name: String,
+    pub tags: Vec<String>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct LibraryInfo {
+    pub path: String,
+    pub name: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct Library {
+    pub folders: Vec<Folder>,
+    pub smart_folders: Vec<SmartFolder>,
+    pub quick_access: QuickAccess,
+    pub tags_groups: Vec<TagsGroup>,
+    pub modification_time: i64,
+    pub application_version: String,
+    pub library: LibraryInfo,
 }

@@ -61,4 +61,16 @@ impl<T> EagleResponse<T> {
             }),
         }
     }
+
+    pub(crate) fn ok_without_data(self) -> Result<()> {
+        match self.status {
+            EagleApiStatus::Success => Ok(()),
+            _ => Err(Error::EagleApi {
+                status: self.status,
+                data: self.data.and_then(|data| data.into_message()),
+                code: self.code,
+                message: self.message,
+            }),
+        }
+    }
 }

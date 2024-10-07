@@ -1,4 +1,5 @@
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
 
 use crate::{Error, Result};
 
@@ -19,12 +20,14 @@ pub enum EagleApiStatus {
 pub(crate) enum EagleApiData<T> {
     Message(String),
     Data(T),
+    Any(Value),
 }
 
 impl<T> EagleApiData<T> {
     pub(crate) fn into_message(self) -> Option<String> {
         match self {
             EagleApiData::Message(message) => Some(message),
+            EagleApiData::Any(value) => serde_json::to_string(&value).ok(),
             _ => None,
         }
     }
@@ -38,11 +41,18 @@ impl<T> EagleApiData<T> {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum EagleApiCode {
+    String(String),
+    Number(i64),
+}
+
+#[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct EagleResponse<T> {
     status: EagleApiStatus,
     data: Option<EagleApiData<T>>,
-    code: Option<i64>,
+    code: Option<EagleApiCode>,
     message: Option<String>,
 }
 

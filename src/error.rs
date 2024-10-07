@@ -1,4 +1,4 @@
-use crate::EagleApiStatus;
+use crate::{EagleApiCode, EagleApiStatus};
 
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
@@ -10,7 +10,7 @@ pub enum Error {
     EagleApi {
         status: EagleApiStatus,
         data: Option<String>,
-        code: Option<i64>,
+        code: Option<EagleApiCode>,
         message: Option<String>,
     },
 }

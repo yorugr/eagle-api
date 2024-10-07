@@ -66,10 +66,7 @@ mod tests {
         let resp = api
             .item_add_from_url(
                 AddFromUrlRequest::builder()
-                    .url(
-                        "https://pic4.zhimg.com/v2-0b273a7498740a1d6b698314a6fb6f3b_r.jpg"
-                            .to_string(),
-                    )
+                    .url("https://pic4.zhimg.com/v2-0b273a7498740a1d6b698314a6fb6f3b_r.jpg")
                     .name("example".to_string())
                     .annotation("aaa")
                     .star(5)
